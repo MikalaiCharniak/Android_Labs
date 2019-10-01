@@ -35,6 +35,12 @@
         android:layout_height="wrap_content"
         android:hint="Social Link"
         android:inputType="text"/>
+    <EditText
+        android:id="@+id/Location"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Social Link"
+        android:inputType="text"/>
     <Button
         android:id="@+id/addContactSubmit"
         android:layout_width="match_parent"

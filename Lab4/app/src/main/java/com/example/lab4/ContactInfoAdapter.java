@@ -10,7 +10,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.lab4.Models.ContactInfo;
-import com.google.firebase.FirebaseApp;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -54,10 +53,10 @@ class ContactInfoAdapter extends ArrayAdapter<ContactInfo> {
             public void onClick(View v) {
                 noteList.remove(note);
                 notifyDataSetChanged();
-                mDatabaseReference.child("contacts")
+                mDatabaseReference
                         .child(note.GetId())
                         .removeValue();
-                Toast.makeText(getContext(), "Removed", Toast.LENGTH_LONG).show();
+                Toast.makeText(getContext(), "Removed" + note.GetId(), Toast.LENGTH_LONG).show();
             }
         });
 //        viewHolder.addButton.setOnClickListener(new View.OnClickListener() {
@@ -85,7 +84,7 @@ class ContactInfoAdapter extends ArrayAdapter<ContactInfo> {
         final TextView nameView;
 
         ViewHolder(View view) {
-            addButton = (Button) view.findViewById(R.id.addButton);
+            addButton = (Button) view.findViewById(R.id.updateButton);
             removeButton = (Button) view.findViewById(R.id.removeButton);
             nameView = (TextView) view.findViewById(R.id.nameView);
         }

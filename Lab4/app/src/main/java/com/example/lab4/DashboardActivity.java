@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -23,6 +24,7 @@ import java.util.List;
 
 public class DashboardActivity extends AppCompatActivity {
 
+    public ContactInfo selectedItem;
     private Button addContact;
     private Button exitBtn;
     private ListView listView;
@@ -51,7 +53,18 @@ public class DashboardActivity extends AppCompatActivity {
                 startActivity(new Intent(DashboardActivity.this, LoginActivity.class));
             }
         });
-
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+                selectedItem = contacts.get(position);
+                Toast.makeText(getApplicationContext(),
+                        "Click ListItem Number " + position, Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(DashboardActivity.this, ContactInfoActivity.class);
+                intent.putExtra("ContactInfo",selectedItem);
+                startActivity(intent);
+            }
+        });
     }
 
     private void initFirebase() {
@@ -71,10 +84,8 @@ public class DashboardActivity extends AppCompatActivity {
         listView = findViewById(R.id.list);
     }
 
-
     private void addEventFirebaseListener() {
-        mDatabaseReference.child("contacts")
-                .addValueEventListener(new ValueEventListener() {
+        mDatabaseReference.addValueEventListener(new ValueEventListener() {
                     //если данные в БД меняются
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {

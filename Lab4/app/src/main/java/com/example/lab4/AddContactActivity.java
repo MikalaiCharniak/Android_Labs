@@ -5,8 +5,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import java.util.HashMap;
-import java.util.Map;
 
 import com.example.lab4.Models.ContactInfo;
 import com.google.firebase.FirebaseApp;
@@ -18,7 +16,7 @@ public class AddContactActivity extends AppCompatActivity  {
     private FirebaseDatabase mFirebaseDatabase;
     private DatabaseReference mDatabaseReference;
     Button addContactBtn;
-    EditText input_name, input_email,input_phone,input_socialLink;
+    EditText input_name, input_email,input_phone,input_socialLink,input_location;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,8 +33,9 @@ public class AddContactActivity extends AppCompatActivity  {
                 contactInfo.SetEmail(input_email.getText().toString());
                 contactInfo.SetPhoneNumber(input_phone.getText().toString());
                 contactInfo.SetScoialLink(input_socialLink.getText().toString());
-                DatabaseReference contactsRef = mDatabaseReference.child("contacts");
-                contactsRef.push().setValue(contactInfo);
+                contactInfo.SetLocation(input_location.getText().toString());
+                DatabaseReference contactsRef = mDatabaseReference.child(contactInfo.GetId());
+                contactsRef.setValue(contactInfo);
                 startActivity(new Intent(AddContactActivity.this,DashboardActivity.class));
             }
         });
@@ -58,5 +57,6 @@ public class AddContactActivity extends AppCompatActivity  {
         input_name = findViewById(R.id.Name);
         input_phone = findViewById(R.id.PhoneNumber);
         input_socialLink = findViewById(R.id.SocialLink);
+        input_location = findViewById(R.id.Location);
     }
 }

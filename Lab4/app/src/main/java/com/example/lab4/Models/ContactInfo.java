@@ -1,16 +1,15 @@
 package com.example.lab4.Models;
 
-import android.location.Location;
-
 import java.util.UUID;
+import java.io.Serializable;
 
-public class ContactInfo {
+public class ContactInfo implements Serializable {
     public String Id;
     public String name;
     public String email;
     public String phoneNumber;
     public String socialLink;
-    public Location location;
+    public String location;
 
     public ContactInfo() {
         this.Id = UUID.randomUUID().toString();
@@ -52,11 +51,11 @@ public class ContactInfo {
         this.socialLink = SocialLink;
     }
 
-    public Location GetLocation() {
+    public String GetLocation() {
         return this.location;
     }
 
-    public void SetLocation(Location Location) {
+    public void SetLocation(String Location) {
         this.location = Location;
     }
 }
