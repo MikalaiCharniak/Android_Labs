@@ -26,6 +26,10 @@ public class ContactInfoActivity extends AppCompatActivity {
         contactPhone.setText(selectedContact.GetPhoneNumber());
         contactSocialLink.setText(selectedContact.GetSocialLink());
         contactLocation.setText(selectedContact.GetLocation());
+        Linkify.addLinks(contactEmail,  Linkify.EMAIL_ADDRESSES);
+        Linkify.addLinks(contactPhone, Linkify.PHONE_NUMBERS);
+        Linkify.addLinks(contactSocialLink,Linkify.WEB_URLS);
+        Linkify.addLinks(contactLocation, Linkify.MAP_ADDRESSES);
     }
 
     private void initializeUI() {
@@ -34,10 +38,6 @@ public class ContactInfoActivity extends AppCompatActivity {
         contactPhone = findViewById(R.id.contactPhone);
         contactSocialLink = findViewById(R.id.contactSocialLink);
         contactLocation = findViewById(R.id.contactLocation);
-        Linkify.addLinks(contactEmail,  Linkify.EMAIL_ADDRESSES);
-        Linkify.addLinks(contactPhone, Linkify.PHONE_NUMBERS);
-        Linkify.addLinks(contactSocialLink,Linkify.WEB_URLS);
-        Linkify.addLinks(contactLocation, Linkify.MAP_ADDRESSES);
     }
 
 }

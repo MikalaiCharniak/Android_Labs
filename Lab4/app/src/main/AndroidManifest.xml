@@ -21,5 +21,6 @@
         <activity android:name=".DashboardActivity"/>
         <activity android:name=".AddContactActivity"/>
         <activity android:name=".ContactInfoActivity"/>
+        <activity android:name=".UpdateContactActivity"/>
     </application>
 </manifest>

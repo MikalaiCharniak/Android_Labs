@@ -1,6 +1,7 @@
 package com.example.lab4;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,6 +23,7 @@ class ContactInfoAdapter extends ArrayAdapter<ContactInfo> {
     private LayoutInflater inflater;
     private int layout;
     private ArrayList<ContactInfo> noteList;
+    private Context currentContext;
 
 
     ContactInfoAdapter(Context context, int resource, ArrayList<ContactInfo> notes,
@@ -32,6 +34,7 @@ class ContactInfoAdapter extends ArrayAdapter<ContactInfo> {
         this.inflater = LayoutInflater.from(context);
         this.mFirebaseDatabase = mFirebaseDatabase;
         this.mDatabaseReference = mDatabaseReference;
+        this.currentContext = context;
     }
 
     public View getView(int position, View convertView, ViewGroup parent) {
@@ -59,18 +62,15 @@ class ContactInfoAdapter extends ArrayAdapter<ContactInfo> {
                 Toast.makeText(getContext(), "Removed" + note.GetId(), Toast.LENGTH_LONG).show();
             }
         });
-//        viewHolder.addButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                note.setText(viewHolder.nameView.getText().toString());
-//                boolean result = JSONHelper.exportToJSON(getContext(), noteList);
-//                if (result) {
-//                    Toast.makeText(getContext(), "Updated", Toast.LENGTH_LONG).show();
-//                } else {
-//                    Toast.makeText(getContext(), "Error", Toast.LENGTH_LONG).show();
-//                }
-//            }
-//        });
+        viewHolder.updateButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(currentContext, UpdateContactActivity.class);
+                intent.putExtra("ContactInfo",note);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                currentContext.startActivity(intent);
+            }
+        });
 
         return convertView;
     }
@@ -80,11 +80,11 @@ class ContactInfoAdapter extends ArrayAdapter<ContactInfo> {
     }
 
     private class ViewHolder {
-        final Button addButton, removeButton;
+        final Button updateButton, removeButton;
         final TextView nameView;
 
         ViewHolder(View view) {
-            addButton = (Button) view.findViewById(R.id.updateButton);
+            updateButton = (Button) view.findViewById(R.id.updateButton);
             removeButton = (Button) view.findViewById(R.id.removeButton);
             nameView = (TextView) view.findViewById(R.id.nameView);
         }
